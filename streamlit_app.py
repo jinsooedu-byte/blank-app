@@ -185,28 +185,28 @@ if "agent" in st.session_state:
                 result = st.session_state.agent.invoke(
                     {"messages": st.session_state.messages}
                 )
-        #     answer = result["messages"][-1].content
-        #     st.write(answer)
-            
-        #     # 실제로 검색된 원문을 펼쳐 볼 수 있게 보여 줍니다.
-        #     with st.expander("🔎 검색된 근거 원문 보기"):
-        #         for m in result["messages"]:
-        #             if m.type == "tool":
-        #                 st.markdown(f"**{m.name}**")
-        #                 st.text(m.content)
-        # st.session_state.messages.append({"role": "assistant", "content": answer})
             answer = result["messages"][-1].content
-
-            # 📄 pdf_search 결과의 [OO쪽] 표시를 모아, 답변 끝에 참고한 쪽수를 붙입니다.
-            import re
-            pages = []
-            for m in result["messages"]:
-                if m.type == "tool" and m.name == "pdf_search":
-                    for p in re.findall(r"\[([^\]]+?)쪽\]", m.content):
-                        if f"{p}쪽" not in pages:
-                            pages.append(f"{p}쪽")
-            if pages:
-                answer += "\n\n📄 참고한 편람 쪽: " + ", ".join(pages)
-
             st.write(answer)
+            
+            # 실제로 검색된 원문을 펼쳐 볼 수 있게 보여 줍니다.
+            with st.expander("🔎 검색된 근거 원문 보기"):
+                for m in result["messages"]:
+                    if m.type == "tool":
+                        st.markdown(f"**{m.name}**")
+                        #st.text(m.content)
         st.session_state.messages.append({"role": "assistant", "content": answer})
+        #     answer = result["messages"][-1].content
+
+        #     # 📄 pdf_search 결과의 [OO쪽] 표시를 모아, 답변 끝에 참고한 쪽수를 붙입니다.
+        #     import re
+        #     pages = []
+        #     for m in result["messages"]:
+        #         if m.type == "tool" and m.name == "pdf_search":
+        #             for p in re.findall(r"\[([^\]]+?)쪽\]", m.content):
+        #                 if f"{p}쪽" not in pages:
+        #                     pages.append(f"{p}쪽")
+        #     if pages:
+        #         answer += "\n\n📄 참고한 편람 쪽: " + ", ".join(pages)
+
+        #     st.write(answer)
+        # st.session_state.messages.append({"role": "assistant", "content": answer})
