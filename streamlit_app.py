@@ -143,6 +143,7 @@ st.logo("kibo_logo.png")   # 기금 로고 (아래 주의사항 참고)
 
 st.title("📝 기보 공문서 작성 도우미")
 st.caption("「행정업무운영 편람」을 근거로 공문서 작성 규칙을 안내합니다. 기금 내부 규정이 따로 있으면 그 규정을 우선 확인하세요.")
+st.image("banner.png")   # 같은 폴더에 있는 배너 이미지
 
 with st.sidebar:
     st.header("설정")
