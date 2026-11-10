@@ -187,4 +187,11 @@ if "agent" in st.session_state:
                 )
             answer = result["messages"][-1].content
             st.write(answer)
+            
+            # 실제로 검색된 원문을 펼쳐 볼 수 있게 보여 줍니다.
+            with st.expander("🔎 검색된 근거 원문 보기"):
+                for m in result["messages"]:
+                    if m.type == "tool":
+                        st.markdown(f"**{m.name}**")
+                        st.text(m.content)
         st.session_state.messages.append({"role": "assistant", "content": answer})
